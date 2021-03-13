@@ -1,0 +1,32 @@
+---
+- hosts: rpm-based
+  tasks:
+  - name: Adding Docker Repository
+    yum_repository:
+      name: DockerRepository
+      description: Repository for Docker
+      baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/
+      gpgcheck: no
+  - name: Installing Docker 
+    command: 
+        cmd: "yum install -y docker-ce --nobest "
+  - name: Starting Docker Service
+    service: 
+      name: docker
+      state: started
+- hosts: ubuntu
+  tasks:
+  - name: Updating OS
+    command:
+      cmd: apt update
+  - name: Installing Snap
+    command:
+      cmd: "apt install snapd"
+  - name: Installing Docker
+    command:
+      cmd: "snap install docker"
+- hosts: rpm-based , ubuntu
+  tasks:
+  - name: Install docker-py
+    pip:
+      name: docker-py 

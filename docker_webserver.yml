@@ -1,0 +1,18 @@
+---
+- hosts: rpm-based , ubuntu 
+  tasks:
+  - name: Cloning source code in a local directory
+    git:
+      repo: https://github.com/pewxh/testpage
+      dest: /sourceCode
+  - name: Launching a webserver container
+    docker_container:
+      name: MyWebServer
+      image: httpd
+      volumes: /sourceCode/:/usr/local/apache2/htdocs/
+      ports: 
+        - "80:80"
+      state: started
+      detach: yes
+
+

@@ -1,0 +1,15 @@
+[redhat]
+root@192.168.1.5
+root@192.168.1.7
+
+
+[ubuntu]
+pewxh@192.168.1.4
+
+
+[rpm-based:children]
+redhat
+
+
+[debian-based:children]
+ubuntu
